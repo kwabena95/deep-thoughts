@@ -1,7 +1,8 @@
 import React from 'react';
 import ThoughtList from '../components/ThoughtList';
-import FriendList from '../components/FriendList';
 import ThoughtForm from '../components/ThoughtForm';
+import FriendList from '../components/FriendList';
+
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_THOUGHTS, QUERY_ME_BASIC } from '../utils/queries';
@@ -21,7 +22,13 @@ const Home = () => {
             <ThoughtForm />
           </div>
         )}
-        <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}></div>
+        <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}>
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <ThoughtList thoughts={thoughts} title="Some Feed for Thought(s)..." />
+          )}
+        </div>
         {loggedIn && userData ? (
           <div className="col-12 col-lg-3 mb-3">
             <FriendList
